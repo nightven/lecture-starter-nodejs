@@ -10,4 +10,12 @@ const router = Router();
 
 // TODO: Implement route controllers for user
 
+router.get("/", userService.getUsers);
+
+router.get("/:id", userService.getOneUser);
+
+router.post('/', createUserValid, userService.createUser);
+
+router.delete("/:id", userService.deleteById);
+
 export { router };
