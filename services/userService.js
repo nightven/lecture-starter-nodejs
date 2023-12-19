@@ -5,38 +5,59 @@ class UserService {
 
   createUser(req, res) {
     const body = req.body;
+    if (!body) {
+      return null;
+    }
+   
     const newUser = userRepository.create(body);
     if (!newUser) {
       return null;
     }
-    res.status(201).json(newUser);
+    return newUser;
   }
 
-  getUsers(req, res) {
+  getUsers() {
     const users = userRepository.getAll();
-    console.log(users);
-        res.status(200).json(users);
-  }
 
-  getOneUser(req, res) { 
-    const id = req.params
-   
-    const user = userRepository.getOne(id)
-    res.status(200).json(user);
+    if (!users) {
+      return null;
+    }
+    return users;
   }
 
   deleteById(req, res) {
-    const {id} = req.params;
-    const deletedUser = userRepository.delete(id);
-    if (deletedUser.length === 0) {
-      res.status(404).json({ message: "Not Found" });
+    const { id } = req.params;
+
+    if (!id) {
+      return null;
     }
-      res.status(200).json({ message: "user was deleted" });
+    const deletedUser = userRepository.delete(id);
+
+    if (deletedUser.length === 0) {
+      return null;
+    }
+    return deletedUser;
   }
 
+  updateUser(req, res) {
+    const { id } = req.params;
 
-  search(search) {
-    const item = userRepository.getOne(search);
+    if (!id) {
+      return null;
+    }
+
+    const updateUser = userRepository.update(id, req.body);
+
+    if (!updateUser) {
+      return null;
+    }
+    return updateUser;
+  }
+
+  search(req) {
+    const id = req.params;
+
+    const item = userRepository.getOne(id);
     if (!item) {
       return null;
     }
