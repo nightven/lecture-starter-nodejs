@@ -4,7 +4,8 @@ class FighterService {
   // TODO: Implement methods to work with fighters
   getAllFighters() {
     const fighters = fighterRepository.getAll();
-    if (!fighters) {
+
+    if (fighters.length === 0) {
       return null;
     }
     return fighters;
@@ -20,7 +21,13 @@ class FighterService {
   }
 
   createFighter(req, res) {
-    const newFighter = fighterRepository.create(req.body);
+    const fighter = req.body;
+  
+    if (!fighter.hasOwnProperty("health")) {
+      fighter.health = 100;
+    }
+    
+    const newFighter = fighterRepository.create(fighter);
 
     if (!newFighter) {
       return null;
