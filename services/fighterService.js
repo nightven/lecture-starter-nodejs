@@ -7,6 +7,7 @@ class FighterService {
     if (!fighters) {
       return null;
     }
+    return fighters;
   }
 
   getFighterById(req, res) {
@@ -15,7 +16,6 @@ class FighterService {
     if (!fighter) {
       return null;
     }
-
     return fighter;
   }
 
@@ -25,7 +25,6 @@ class FighterService {
     if (!newFighter) {
       return null;
     }
-
     return newFighter;
   }
 
